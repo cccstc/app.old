@@ -22,10 +22,10 @@ const RecordListItem = ({record, navigator}) => (
         component: WebView,
         passProps: {
           source: {html: `
-            <audio controls>
+            <video controls autoplay width="100%">
               <source src="${record.audio}" type="audio/mpeg">
               Your browser does not support the audio element.
-            </audio>
+            </video>
           `},
         }
       })
