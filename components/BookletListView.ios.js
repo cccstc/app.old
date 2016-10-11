@@ -31,12 +31,12 @@ const BookletListItem = ({booklet, navigator}) => (
   </TouchableHighlight>
 );
 
-const ListSeparator = (sectionID, rowID, adjacentRowHighlighted) => (
+const ListSeparator = (sectionID, rowID) => (
   <View
     key={`${sectionID}-${rowID}`}
     style={{
-      height: adjacentRowHighlighted ? 4 : 1,
-      backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
+      height: 1,
+      backgroundColor: '#CCCCCC',
     }}
   />
 );
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     paddingLeft: 30,
+    backgroundColor: "#ffffff",
   },
   title: {
     fontSize: 28,
