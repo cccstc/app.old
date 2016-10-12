@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     flex: 1,
   },
   text: {

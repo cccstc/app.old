@@ -17,7 +17,7 @@ export class RecordTab extends Component {
     const {selected, onPress} = this.props;
     return (
       <TabBarIOS.Item
-        title="讀導重溫"
+        title="講道重溫"
         icon={{uri: tabIcon, scale: 3}}
         selected={selected}
         onPress={onPress}
@@ -25,7 +25,7 @@ export class RecordTab extends Component {
         <NavigatorIOS
           initialRoute={{
             component: RecordListView,
-            title: '讀導重溫',
+            title: '講道重溫',
           }}
           style={{flex: 1}}
         />
