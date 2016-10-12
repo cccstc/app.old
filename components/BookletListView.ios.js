@@ -6,6 +6,7 @@ import {
   WebView,
   TouchableHighlight,
   Text,
+  StatusBar,
   StyleSheet,
 } from 'react-native';
 import { BookletObservable } from "../lib/api";
@@ -14,10 +15,35 @@ const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1.date !== r2.date
 });
 
+class BookletWebView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+    };
+  }
+
+  render() {
+    const { source } = this.props;
+    const { loading } = this.state;
+    return (
+      <View style={{flex: 1}}>
+        <WebView
+          source={source}
+          scalesPageToFit={true}
+          onLoadStart={() => this.setState({loading: true})}
+          onLoadEnd={() => this.setState({loading: false})}
+        />
+        <StatusBar networkActivityIndicatorVisible={loading} />
+      </View>
+    );
+  }
+}
+
 const BookletListItem = ({booklet, navigator}) => (
   <TouchableHighlight onPress={() => {navigator.push({
       title: booklet.date,
-      component: WebView,
+      component: BookletWebView,
       passProps: {
         source: {uri: booklet.booklet},
       }
