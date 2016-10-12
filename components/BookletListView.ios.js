@@ -4,6 +4,7 @@ import {
   RefreshControl,
   View,
   WebView,
+  ActionSheetIOS,
   TouchableHighlight,
   Text,
   StatusBar,
@@ -41,13 +42,25 @@ class BookletWebView extends Component {
 }
 
 const BookletListItem = ({booklet, navigator}) => (
-  <TouchableHighlight onPress={() => {navigator.push({
+  <TouchableHighlight onPress={() => {
+    navigator.push({
       title: booklet.date,
       component: BookletWebView,
       passProps: {
         source: {uri: booklet.booklet},
-      }
-    })}}>
+      },
+      rightButtonSystemIcon: "action",
+      onRightButtonPress: () => {
+        ActionSheetIOS.showShareActionSheetWithOptions(
+          {
+            url: booklet.booklet
+          },
+          (error) => alert(error),
+          (success, method) => {}
+        );
+      },
+    })
+  }}>
     <View>
       <View style={styles.row}>
         <Text style={styles.title}>{booklet.date}</Text>
@@ -121,7 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     flex: 1,
   },
   text: {
