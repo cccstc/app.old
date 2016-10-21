@@ -44,9 +44,11 @@ class BookletWebView extends Component {
 const BookletListItem = ({booklet, navigator}) => (
   <TouchableHighlight onPress={() => {
     navigator.push({
+      id: "BOOKLET_PDF",
       title: booklet.date,
       component: BookletWebView,
       passProps: {
+        type: "pdf",
         source: {uri: booklet.booklet},
       },
       rightButtonSystemIcon: "action",

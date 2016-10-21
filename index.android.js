@@ -4,28 +4,98 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  DrawerLayoutAndroid,
+  ListView,
+  TouchableHighlight,
   Text,
-  View
+  View,
 } from 'react-native';
 
-class ChurchApp extends Component {
+import { BookletView } from "./booklet.android";
+import { RecordView } from "./record.android";
+
+class DrawerView extends Component {
+  constructor(props) {
+    super(props);
+    const { pages } = props;
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1.title !== r2.title
+    });
+    this.state = {
+      dataSource: ds.cloneWithRows(pages),
+    };
+  }
+
   render() {
+    const { dataSource } = this.state;
+    const { onPageSelect } = this.props;
+    return (
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <ListView
+          dataSource={dataSource}
+          renderRow={
+            (rowData, sectionID, rowID, highlightRow) => (
+              <TouchableHighlight onPress={() => onPageSelect(rowData)}>
+                <View>
+                  <View style={styles.row}>
+                    <Text style={styles.menuText}>{rowData.title}</Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            )
+          }
+        />
+      </View>
+    );
+  }
+}
+
+class ChurchApp extends Component {
+  constructor(props) {
+    super(props);
+    const pages = [
+      {title: "崇拜週刊", index: 0},
+      {title: "講道重溫", index: 1},
+    ];
+    this.state = {
+      pages: pages,
+      currentPage: pages[0],
+      toolbarActions: [],
+    };
+  }
+
+  renderContent() {
+    const { currentPage } = this.state;
+    if (currentPage.index === 0) {
+      return (<BookletView onMenuIconClick={() => this.drawer.openDrawer()}/>);
+    } else if (currentPage.index === 1) {
+      return (<RecordView onMenuIconClick={() => this.drawer.openDrawer()}/>);
+    } else {
+      return (<Text>發生錯誤</Text>)
+    }
+  }
+
+  render() {
+    const { pages } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <DrawerLayoutAndroid
+          drawerWidth={200}
+          drawerPosition={DrawerLayoutAndroid.positions.Left}
+          renderNavigationView={() => (
+            <DrawerView pages={pages} onPageSelect={(page) => {
+              this.setState({currentPage: page});
+              this.drawer.closeDrawer();
+            }}/>
+          )}
+          ref={(ref) => this.drawer = ref}
+        >
+          {this.renderContent()}
+        </DrawerLayoutAndroid>
       </View>
     );
   }
@@ -34,19 +104,23 @@ class ChurchApp extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    backgroundColor: '#F5FCFF'
+  },
+  toolbar: {
+    backgroundColor: '#e9eaed',
+    height: 56,
+  },
+  row: {
+    flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    padding: 10,
+    paddingLeft: 30,
+    backgroundColor: "#ffffff",
   },
-  welcome: {
+  menuText: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
 

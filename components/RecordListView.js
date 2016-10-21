@@ -18,9 +18,11 @@ const RecordListItem = ({record, navigator}) => (
   <TouchableHighlight onPress={() => {
     if (record.audio !== "") {
       navigator.push({
+        id: "RECORD_MP3",
         title: record.date,
         component: WebView,
         passProps: {
+          type: "mp3",
           source: {html: `
             <video controls autoplay width="100%">
               <source src="${record.audio}" type="audio/mpeg">
