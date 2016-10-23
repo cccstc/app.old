@@ -69,7 +69,7 @@ export class RecordView extends Component {
                   if (route.id === "RECORD_ROOT") {
                     return (
                       <View style={styles.navTitle}>
-                        <Text style={styles.navTitleText}>CCCSTC</Text>
+                        <Text style={styles.navTitleText}>中華基督教會沙田堂</Text>
                         <Text style={styles.navDescText}>{route.title}</Text>
                       </View>
                     );
