@@ -54,7 +54,7 @@ class DrawerView extends Component {
   }
 }
 
-class ChurchApp extends Component {
+class CCCSTCApp extends Component {
   constructor(props) {
     super(props);
     const pages = [
@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('ChurchApp', () => ChurchApp);
+AppRegistry.registerComponent('CCCSTCApp', () => CCCSTCApp);

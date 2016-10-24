@@ -1,4 +1,4 @@
-package com.churchapp;
+package org.cccstc;
 
 import android.app.Application;
 import android.util.Log;
