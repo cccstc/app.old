@@ -1,5 +1,18 @@
 {
   "expo": {
-    "sdkVersion": "17.0.0"
+    "sdkVersion": "17.0.0",
+    "name": "CCCSTC",
+    "icon": "./resources/app-icon.png",
+    "version": "2.0.1",
+    "slug": "cccstc-app",
+    "sdkVersion": "17.0.0",
+    "ios": {
+      "bundleIdentifier": "org.cccstc.SandPlusSugar",
+      "buildNumber": "3",
+    },
+    "android": {
+      "package": "org.cccstc",
+      "versionCode": "3"
+    }
   }
 }
